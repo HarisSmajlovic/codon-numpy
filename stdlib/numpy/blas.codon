@@ -1,0 +1,26 @@
+# Copyright (C) 2022-2023 Exaloop Inc. <https://exaloop.io>
+
+# Constants
+CBLAS_ROW_MAJOR = i32(101)
+CBLAS_COL_MAJOR = i32(102)
+
+CBLAS_NO_TRANS   = i32(111)
+CBLAS_TRANS      = i32(112)
+CBLAS_CONJ_TRANS = i32(113)
+
+CBLAS_UPPER = i32(121)
+CBLAS_LOWER = i32(122)
+
+CBLAS_NON_UNIT = i32(131)
+CBLAS_UNIT     = i32(132)
+
+CBLAS_LEFT  = i32(141)
+CBLAS_RIGHT = i32(142)
+
+
+# Stubs
+from C import cblas_dgemm(i32, i32, i32, i32, i32, i32, float,
+                          Ptr[float], i32, Ptr[float], i32,
+                          float, Ptr[float], i32)
+
+from C import cblas_ddot(i32, Ptr[float], i32, Ptr[float], i32) -> float

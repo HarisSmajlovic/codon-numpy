@@ -1,0 +1,41 @@
+# Copyright (C) 2022-2023 Exaloop Inc. <https://exaloop.io>
+
+from numpy.ndarray import ndarray
+from numpy.blas import *
+
+@extend
+class ndarray:
+    def __matmul__(self, other: ndarray[S,T]):
+        if staticlen(self.shape) != 2:
+            compile_error('can only matrix-multiply 2D arrays')
+        m = self.shape[0]
+        n = other.shape[1]
+        k = self.shape[1]
+
+        if k != other.shape[0]:
+            raise ValueError('matmul: input matrix shape mismatch')
+
+        a = self._contiguous()
+        b = other._contiguous()
+        c = Ptr[T](m * n)
+        for i in range(m*n):
+            c[i] = 999.
+        cblas_dgemm(CBLAS_ROW_MAJOR, CBLAS_NO_TRANS, CBLAS_NO_TRANS,
+            i32(m), i32(n), i32(k), 1.0, a, i32(k), b, i32(n), 0.0, c, i32(n))
+
+        return ndarray._new_contig((m, n), c)
+
+    def dot(self, other: ndarray[S,T]):
+        if staticlen(self.shape) == 2:
+            return self @ other
+        elif staticlen(self.shape) != 1:
+            compile_error('can only dot 1D arrays')
+
+        n = self.shape[0]
+        if n != other.shape[0]:
+            raise ValueError('shape mismatch in dot()')
+
+        s1 = self.strides[0] // self.itemsize
+        s2 = other.strides[0] // other.itemsize
+
+        return cblas_ddot(i32(n), self._data, i32(s1), other._data, i32(s2))
