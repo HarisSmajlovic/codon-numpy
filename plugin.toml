@@ -1,0 +1,9 @@
+[about]
+name = "Codon-NumPy"
+description = "Codon-native NumPy implementation"
+version = "0.0.1"
+supported = ">=0.15.5"
+
+[library]
+cpp = "build/libnumpy"
+codon = "stdlib"
