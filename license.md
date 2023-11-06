@@ -90,4 +90,6 @@ other recipients of the licensed work to be provided by Licensor:
 
 4. Not to modify this License in any other way.
 
+-----------------------------------------------------------------------------
+
 Additional requirement: only for academic use.
