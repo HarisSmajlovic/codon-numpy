@@ -33,7 +33,7 @@ if(APPLE)
   target_link_libraries(numpy PRIVATE /opt/homebrew/Cellar/gcc/12.2.0/lib/gcc/12/libgfortran.dylib)
   target_link_libraries(numpy PRIVATE -Wl,-force_load,$<TARGET_FILE:openblas>)
 else()
-  target_link_libraries(numpy PRIVATE /usr/lib/gcc/x86_64-redhat-linux/8/libgfortran.so)
+  target_link_libraries(numpy PRIVATE /opt/rh/devtoolset-10/root/usr/lib/gcc/x86_64-redhat-linux/10/libgfortran.so)
   target_link_libraries(numpy PRIVATE -Wl,--whole-archive $<TARGET_FILE:openblas> -Wl,--no-whole-archive)
 endif()
 
